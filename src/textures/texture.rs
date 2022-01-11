@@ -95,6 +95,31 @@ impl Texture {
         }
     }
 
+    #[inline]
+    pub fn id(&self) -> u32 {
+        self.texture.id
+    }
+
+    #[inline]
+    pub fn width(&self) -> i32 {
+        self.texture.width
+    }
+
+    #[inline]
+    pub fn height(&self) -> i32 {
+        self.texture.height
+    }
+
+    #[inline]
+    pub fn mipmaps(&self) -> i32 {
+        self.texture.mipmaps
+    }
+
+    #[inline]
+    pub fn format(&self) -> i32 {
+        self.texture.format
+    }
+
     pub fn draw_texture(&self, pos_x: i32, pos_y: i32, tint: Color) {
         // SAFETY: ffi
         unsafe { ffi::DrawTexture(self.texture, pos_x, pos_y, tint.into()) }
