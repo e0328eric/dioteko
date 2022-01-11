@@ -1,0 +1,7 @@
+[package]
+name = "dioteko"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dioteko-raylib-sys = { path = "./dioteko-raylib-sys" }
