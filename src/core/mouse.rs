@@ -25,3 +25,8 @@ impl_raylib_enum![
     (ResizeAll, MouseCursor_MOUSE_CURSOR_RESIZE_ALL),
     (NotAllowed, MouseCursor_MOUSE_CURSOR_NOT_ALLOWED),
 ];
+
+pub fn get_mouse_wheel_move() -> f32 {
+    // SAFETY: ffi
+    unsafe { ffi::GetMouseWheelMove() }
+}
