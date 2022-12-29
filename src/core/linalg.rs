@@ -7,6 +7,33 @@ impl_vec!(Vector2 | x, y);
 impl_vec!(Vector3 | x, y, z);
 impl_vec!(Vector4 | x, y, z, w);
 
+impl From<(f32, f32)> for Vector2 {
+    fn from(tup: (f32, f32)) -> Self {
+        Self { x: tup.0, y: tup.1 }
+    }
+}
+
+impl From<(f32, f32, f32)> for Vector3 {
+    fn from(tup: (f32, f32, f32)) -> Self {
+        Self {
+            x: tup.0,
+            y: tup.1,
+            z: tup.2,
+        }
+    }
+}
+
+impl From<(f32, f32, f32, f32)> for Vector4 {
+    fn from(tup: (f32, f32, f32, f32)) -> Self {
+        Self {
+            x: tup.0,
+            y: tup.1,
+            z: tup.2,
+            w: tup.3,
+        }
+    }
+}
+
 // Quaternion Implementations
 pub struct Quaternion(pub f32, pub f32, pub f32, pub f32);
 

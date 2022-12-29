@@ -12,3 +12,11 @@ dioteko-raylib-sys = { path = "./dioteko-raylib-sys" }
 [[example]]
 name = "basic_window"
 path = "examples/core/basic_window.rs"
+
+[[example]]
+name = "input_keys"
+path = "examples/core/input_keys.rs"
+
+[[example]]
+name = "input_mouse"
+path = "examples/core/input_mouse.rs"

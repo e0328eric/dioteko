@@ -61,6 +61,12 @@ macro_rules! impl_vec {
             $(pub $components: f32,)+
         }
 
+        impl $vec_name {
+            pub fn new($($components: f32,)+) -> Self {
+                Self { $($components,)+ }
+            }
+        }
+
         impl From<ffi::$vec_name> for $vec_name {
             #[inline]
             fn from(vec: ffi::$vec_name) -> Self {

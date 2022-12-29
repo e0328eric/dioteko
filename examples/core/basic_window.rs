@@ -12,6 +12,7 @@ fn main() -> dioteko::Result<()> {
     .build()?;
 
     utility::time::set_target_fps(60);
+
     while !window.should_close() {
         {
             let painter = Painter::new();
