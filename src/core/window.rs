@@ -4,7 +4,7 @@ use std::ffi::CString;
 use crate::core::keyboard::Key;
 use crate::error::{self, DiotekoErr};
 use crate::ffi;
-use crate::textures::image;
+use crate::painter::textures::image;
 
 pub struct WindowBuilder<'s> {
     width: usize,

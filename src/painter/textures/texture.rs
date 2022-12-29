@@ -6,7 +6,7 @@ use crate::core::linalg::Vector2;
 use crate::core::npatchinfo::NPatchInfo;
 use crate::core::rectangle::Rectangle;
 use crate::ffi;
-use crate::textures::image::Image;
+use crate::painter::textures::image::Image;
 
 // strong-weak tracker
 pub(crate) struct TextureRc {

@@ -1,5 +1,5 @@
 use crate::ffi;
-use crate::textures::texture::Texture;
+use crate::painter::textures::texture::Texture;
 
 #[repr(transparent)]
 pub struct Image {

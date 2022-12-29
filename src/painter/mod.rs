@@ -1,10 +1,14 @@
+pub mod shapes;
+pub mod text;
+pub mod textures;
+
 use crate::core::color::Color;
 use crate::ffi;
 
 pub struct Painter;
 
 impl Painter {
-    pub fn begin() -> Self {
+    pub fn new() -> Self {
         // SAFETY: ffi
         unsafe {
             ffi::BeginDrawing();

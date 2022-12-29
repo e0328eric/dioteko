@@ -2,6 +2,13 @@
 name = "dioteko"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/e0328eric/dioteko.git"
 
 [dependencies]
 dioteko-raylib-sys = { path = "./dioteko-raylib-sys" }
+
+[[example]]
+name = "basic_window"
+path = "examples/core/basic_window.rs"
