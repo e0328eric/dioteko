@@ -7,6 +7,7 @@ use crate::core::npatchinfo::NPatchInfo;
 use crate::core::rectangle::Rectangle;
 use crate::ffi;
 use crate::painter::textures::image::Image;
+use crate::painter::Painter;
 
 // strong-weak tracker
 pub(crate) struct TextureRc {
@@ -118,131 +119,6 @@ impl Texture {
     #[inline]
     pub fn format(&self) -> i32 {
         self.texture.format
-    }
-
-    pub fn draw_texture(&self, pos_x: i32, pos_y: i32, tint: Color) {
-        // SAFETY: ffi
-        unsafe { ffi::DrawTexture(self.texture, pos_x, pos_y, tint.into()) }
-    }
-
-    pub fn draw_texture_v(&self, position: Vector2, tint: Color) {
-        // SAFETY: ffi
-        unsafe { ffi::DrawTextureV(self.texture, position.into(), tint.into()) }
-    }
-
-    pub fn draw_texture_ex(&self, position: Vector2, rotation: f32, scale: f32, tint: Color) {
-        // SAFETY: ffi
-        unsafe { ffi::DrawTextureEx(self.texture, position.into(), rotation, scale, tint.into()) }
-    }
-
-    pub fn draw_texture_rec(&self, source: Rectangle, position: Vector2, tint: Color) {
-        // SAFETY: ffi
-        unsafe { ffi::DrawTextureRec(self.texture, source.into(), position.into(), tint.into()) }
-    }
-
-    pub fn draw_texture_quad(
-        &self,
-        tiling: Vector2,
-        offset: Vector2,
-        quad: Rectangle,
-        tint: Color,
-    ) {
-        // SAFETY: ffi
-        unsafe {
-            ffi::DrawTextureQuad(
-                self.texture,
-                tiling.into(),
-                offset.into(),
-                quad.into(),
-                tint.into(),
-            )
-        }
-    }
-
-    pub fn draw_texture_tiled(
-        &self,
-        source: Rectangle,
-        dest: Rectangle,
-        origin: Vector2,
-        rotation: f32,
-        scale: f32,
-        tint: Color,
-    ) {
-        // SAFETY: ffi
-        unsafe {
-            ffi::DrawTextureTiled(
-                self.texture,
-                source.into(),
-                dest.into(),
-                origin.into(),
-                rotation,
-                scale,
-                tint.into(),
-            )
-        }
-    }
-
-    pub fn draw_texture_pro(
-        &self,
-        source: Rectangle,
-        dest: Rectangle,
-        origin: Vector2,
-        rotation: f32,
-        tint: Color,
-    ) {
-        // SAFETY: ffi
-        unsafe {
-            ffi::DrawTexturePro(
-                self.texture,
-                source.into(),
-                dest.into(),
-                origin.into(),
-                rotation,
-                tint.into(),
-            )
-        }
-    }
-
-    pub fn draw_texture_npatch(
-        &self,
-        npatch_info: NPatchInfo,
-        dest: Rectangle,
-        origin: Vector2,
-        rotation: f32,
-        tint: Color,
-    ) {
-        // SAFETY: ffi
-        unsafe {
-            ffi::DrawTextureNPatch(
-                self.texture,
-                npatch_info.into(),
-                dest.into(),
-                origin.into(),
-                rotation,
-                tint.into(),
-            )
-        }
-    }
-
-    pub fn draw_texture_poly(
-        &self,
-        center: Vector2,
-        points: &mut Vector2,
-        texcoords: &mut Vector2,
-        points_count: i32,
-        tint: Color,
-    ) {
-        // SAFETY: ffi
-        unsafe {
-            ffi::DrawTexturePoly(
-                self.texture,
-                center.into(),
-                &mut (*points).into() as *mut _,
-                &mut (*texcoords).into() as *mut _,
-                points_count,
-                tint.into(),
-            )
-        }
     }
 
     // This function marks as unsafe because the user can accidentally drop the second value.
@@ -361,5 +237,93 @@ impl TextureRcControll for WeakTexture {
     fn get_weak(&self) -> &Cell<usize> {
         // SAFETY: reference is alive as long as the weak_texture is alive
         unsafe { &self.rc_count.as_ref().weak }
+    }
+}
+
+/// drawing related to texture
+impl Painter {
+    pub fn draw_texture(&self, texture: Texture, pos_x: i32, pos_y: i32, tint: Color) {
+        // SAFETY: ffi
+        unsafe { ffi::DrawTexture(texture.texture, pos_x, pos_y, tint.into()) }
+    }
+
+    pub fn draw_texture_v(&self, texture: Texture, position: Vector2, tint: Color) {
+        // SAFETY: ffi
+        unsafe { ffi::DrawTextureV(texture.texture, position.into(), tint.into()) }
+    }
+
+    pub fn draw_texture_ex(
+        &self,
+        texture: Texture,
+        position: Vector2,
+        rotation: f32,
+        scale: f32,
+        tint: Color,
+    ) {
+        // SAFETY: ffi
+        unsafe {
+            ffi::DrawTextureEx(
+                texture.texture,
+                position.into(),
+                rotation,
+                scale,
+                tint.into(),
+            )
+        }
+    }
+
+    pub fn draw_texture_rec(
+        &self,
+        texture: Texture,
+        source: Rectangle,
+        position: Vector2,
+        tint: Color,
+    ) {
+        // SAFETY: ffi
+        unsafe { ffi::DrawTextureRec(texture.texture, source.into(), position.into(), tint.into()) }
+    }
+
+    pub fn draw_texture_pro(
+        &self,
+        texture: Texture,
+        source: Rectangle,
+        dest: Rectangle,
+        origin: Vector2,
+        rotation: f32,
+        tint: Color,
+    ) {
+        // SAFETY: ffi
+        unsafe {
+            ffi::DrawTexturePro(
+                texture.texture,
+                source.into(),
+                dest.into(),
+                origin.into(),
+                rotation,
+                tint.into(),
+            )
+        }
+    }
+
+    pub fn draw_texture_npatch(
+        &self,
+        texture: Texture,
+        npatch_info: NPatchInfo,
+        dest: Rectangle,
+        origin: Vector2,
+        rotation: f32,
+        tint: Color,
+    ) {
+        // SAFETY: ffi
+        unsafe {
+            ffi::DrawTextureNPatch(
+                texture.texture,
+                npatch_info.into(),
+                dest.into(),
+                origin.into(),
+                rotation,
+                tint.into(),
+            )
+        }
     }
 }
