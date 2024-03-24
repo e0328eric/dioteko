@@ -7,7 +7,7 @@ fn main() -> dioteko::Result<()> {
     let window = WindowBuilder::new(
         SCREEN_WIDTH,
         SCREEN_HEIGHT,
-        "raylib [core] example - input keys",
+        c"raylib [core] example - input keys",
     )
     .build()?;
 
@@ -33,7 +33,7 @@ fn main() -> dioteko::Result<()> {
             let painter = Painter::new();
 
             painter.clear_background(RAYWHITE);
-            painter.draw_text("move the ball with arrow keys", 10, 10, 20, DARKGRAY);
+            painter.draw_text(c"move the ball with arrow keys", 10, 10, 20, DARKGRAY);
             painter.draw_circle_v(ball_position, 50., MAROON);
         }
     }

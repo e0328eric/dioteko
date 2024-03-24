@@ -7,7 +7,7 @@ fn main() -> dioteko::Result<()> {
     let window = WindowBuilder::new(
         SCREEN_WIDTH,
         SCREEN_HEIGHT,
-        "raylib [core] example - input mouse",
+        c"raylib [core] example - input mouse",
     )
     .build()?;
 
@@ -41,7 +41,7 @@ fn main() -> dioteko::Result<()> {
             painter.clear_background(RAYWHITE);
             painter.draw_circle_v(ball_position, 50., ball_color);
             painter.draw_text(
-                "move ball with mouse and click mouse button to change color",
+                c"move ball with mouse and click mouse button to change color",
                 10,
                 10,
                 20,

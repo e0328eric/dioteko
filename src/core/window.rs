@@ -1,5 +1,5 @@
 use std::cell::Cell;
-use std::ffi::CString;
+use std::ffi::{CStr, CString};
 
 use crate::core::keyboard::Key;
 use crate::error::{self, DiotekoErr};
@@ -9,7 +9,7 @@ use crate::painter::textures::image;
 pub struct WindowBuilder<'s> {
     width: usize,
     height: usize,
-    title: &'s str,
+    title: &'s CStr,
     icon: Option<&'s image::Image>,
     exit_key: Option<Key>,
     #[cfg(target_os = "windows")]
@@ -22,7 +22,7 @@ pub struct WindowBuilder<'s> {
 pub struct Window {
     width: usize,
     height: usize,
-    title: CString,
+    title: String,
     #[cfg(target_os = "windows")]
     config_flags: Cell<i32>,
     #[cfg(not(target_os = "windows"))]
@@ -30,7 +30,7 @@ pub struct Window {
 }
 
 impl<'s> WindowBuilder<'s> {
-    pub fn new(width: usize, height: usize, title: &'s str) -> Self {
+    pub fn new(width: usize, height: usize, title: &'s CStr) -> Self {
         Self {
             width,
             height,
@@ -43,12 +43,10 @@ impl<'s> WindowBuilder<'s> {
 
     /// Initialize Window and OpenGL context with given configs
     pub fn build(&self) -> error::Result<Window> {
-        let title = ffi::str_to_cstring(self.title);
-
         // SAFETY: ffi
         unsafe {
             // Initialize Window
-            ffi::InitWindow(self.width as i32, self.height as i32, title.as_ptr());
+            ffi::InitWindow(self.width as i32, self.height as i32, self.title.as_ptr());
 
             // Sets Window State
             #[cfg(target_os = "windows")]
@@ -76,7 +74,7 @@ impl<'s> WindowBuilder<'s> {
         Ok(Window {
             width: self.width,
             height: self.height,
-            title,
+            title: self.title.to_string_lossy().into_owned(),
             config_flags: Cell::new(self.config_flags),
         })
     }
