@@ -1,5 +1,5 @@
 use std::cell::Cell;
-use std::ffi::{CStr, CString};
+use std::ffi::CStr;
 
 use crate::core::keyboard::Key;
 use crate::error::{self, DiotekoErr};

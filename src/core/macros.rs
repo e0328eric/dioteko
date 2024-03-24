@@ -1,4 +1,4 @@
-// A macro wrapper that makes windows _bool type real bool
+// A macro wrapper that makes windows _bool type to "real" bool
 #[macro_export]
 #[cfg(target_os = "windows")]
 macro_rules! to_bool {

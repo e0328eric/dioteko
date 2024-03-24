@@ -46,10 +46,9 @@ pub mod random {
 
 pub mod misc {
     use crate::ffi;
+    use std::ffi::CStr;
 
-    pub fn take_screenshot(filename: impl AsRef<str>) {
-        let filename = ffi::str_to_cstring(filename);
-
+    pub fn take_screenshot(filename: &CStr) {
         // SAFETY: ffi
         unsafe {
             ffi::TakeScreenshot(filename.as_ptr());

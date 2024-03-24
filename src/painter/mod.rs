@@ -8,9 +8,7 @@ use crate::core::color::Color;
 use crate::core::linalg::Vector2;
 use crate::ffi;
 
-pub struct Painter {
-    _marker: PhantomData<*mut u8>, // to make Painter !Sync and !Send
-}
+pub struct Painter(PhantomData<*mut u8>); // to make Painter !Sync and !Send
 
 /// basic drawings
 impl Painter {
@@ -20,9 +18,7 @@ impl Painter {
             ffi::BeginDrawing();
         }
 
-        Self {
-            _marker: PhantomData,
-        }
+        Self(PhantomData)
     }
 
     pub fn clear_background(&self, color: Color) {

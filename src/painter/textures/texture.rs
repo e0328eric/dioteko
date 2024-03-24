@@ -1,4 +1,5 @@
 use std::cell::Cell;
+use std::ffi::CStr;
 use std::ptr::NonNull;
 
 use crate::core::color::Color;
@@ -68,9 +69,7 @@ pub type Texture2D = Texture;
 
 // Implementation of Texture type
 impl Texture {
-    pub fn load(filename: impl AsRef<str>) -> Self {
-        let filename = ffi::str_to_cstring(filename);
-
+    pub fn load(filename: &CStr) -> Self {
         // SAFETY: ffi
         Self {
             texture: unsafe { ffi::LoadTexture(filename.as_ptr()) },

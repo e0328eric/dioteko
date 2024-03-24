@@ -11,6 +11,8 @@ fn main() -> std::io::Result<()> {
     fs::copy("src/bindings/windows_bindings.rs", "src/bindings.rs")?;
     #[cfg(target_os = "macos")]
     fs::copy("src/bindings/macos_bindings.rs", "src/bindings.rs")?;
+    #[cfg(target_os = "linux")]
+    fs::copy("src/bindings/linux_bindings.rs", "src/bindings.rs")?;
 
     #[cfg(target_os = "windows")]
     println!("cargo:rustc-link-search=native={}\\lib", dst.display());

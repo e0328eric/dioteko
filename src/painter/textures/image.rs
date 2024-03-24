@@ -1,3 +1,5 @@
+use std::ffi::CStr;
+
 use crate::ffi;
 use crate::painter::textures::texture::Texture;
 
@@ -7,9 +9,7 @@ pub struct Image {
 }
 
 impl Image {
-    pub fn load_image(filename: impl AsRef<str>) -> Self {
-        let filename = ffi::str_to_cstring(filename);
-
+    pub fn load_image(filename: &CStr) -> Self {
         // SAFETY: ffi
         // SAFETY: Since ffi::LoadImage makes a temporary ffi::Image and
         // ffi::Image has no destructor, making Image with from_raw satisfies
@@ -18,14 +18,12 @@ impl Image {
     }
 
     pub fn load_image_raw(
-        filename: impl AsRef<str>,
+        filename: &CStr,
         width: i32,
         height: i32,
         format: i32,
         header_size: i32,
     ) -> Self {
-        let filename = ffi::str_to_cstring(filename);
-
         // SAFETY: ffi
         // SAFETY: Since ffi::LoadImageRaw makes a temporary ffi::Image and
         // ffi::Image has no destructor, making Image with from_raw satisfies
@@ -41,9 +39,7 @@ impl Image {
         }
     }
 
-    pub fn load_image_from_memory(filename: impl AsRef<str>, file_data: &[u8]) -> Self {
-        let filename = ffi::str_to_cstring(filename);
-
+    pub fn load_image_from_memory(filename: &CStr, file_data: &[u8]) -> Self {
         // SAFETY: ffi
         // SAFETY: Since ffi::LoadImageFromMemory makes a temporary ffi::Image and
         // ffi::Image has no destructor, making Image with from_raw satisfies
@@ -76,9 +72,7 @@ impl Image {
     }
 
     /// This function is unsafe because it takes a raw pointer as its parameter
-    pub unsafe fn load_image_anim(filename: impl AsRef<str>, frames: *mut i32) -> Self {
-        let filename = ffi::str_to_cstring(filename);
-
+    pub unsafe fn load_image_anim(filename: &CStr, frames: *mut i32) -> Self {
         // SAFETY: ffi
         // SAFETY: Since ffi::LoadImageAnim makes a temporary ffi::Image and
         // ffi::Image has no destructor, making Image with from_raw satisfies
